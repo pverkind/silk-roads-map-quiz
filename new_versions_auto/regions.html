@@ -1,0 +1,146 @@
+<html>
+<head>
+	<title>Map Quiz: regions</title>
+</head>
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<center>
+    <img src="regions.jpg" id="map" usemap="#img-map" border="0" style="z-index:0;">
+	<map id="img-map" name="img-map"></map>
+</center>
+
+<div id="control-form"></div>
+<center><font size="-1">© 2002 Lance Jenott (updated by Peter Verkinderen)</font></center>
+
+
+<script language="Javascript">
+
+	var arrayPos=0;
+	var skipped = [];
+	var found = [];
+	var errors = [];
+
+	var features = {
+                'Bactria': {id: 1, coords: "302,136,317,167,350,165,363,147,354,131,334,130,303,142", shape: "poly"},
+        'Crimea': {id: 2, coords: "61,54,72,62,94,54,83,52,73,49,62,52", shape: "poly"},
+        'Ferghana': {id: 3, coords: "352,88,354,97,380,94,382,87,351,88", shape: "poly"},
+        'Gobi Desert': {id: 4, coords: "626,45,614,58,624,70,725,68,748,34,726,21,702,16,686,35,626,45", shape: "poly"},
+        'Hexi Corridor': {id: 5, coords: "559,88,562,98,586,103,610,111,610,116,621,116,635,110,613,98,584,91,559,88", shape: "poly"},
+        'Karakum Desert': {id: 6, coords: "229,95,232,109,245,106,257,105,282,113,302,118,293,95,222,94", shape: "poly"},
+        'Kashmir': {id: 7, coords: "376,133,405,135,405,121,376,120,374,135", shape: "poly"},
+        'Khorasan': {id: 8, coords: "234,113,237,145,250,158,288,164,301,133,283,120,252,111,232,117", shape: "poly"},
+        'Khorezm': {id: 9, coords: "231,65,234,84,273,83,271,76,267,63,230,66", shape: "poly"},
+        'Sogdia': {id: 10, coords: "324,113,318,126,360,123,361,108,323,115", shape: "poly"},
+        'Taklamakan Desert': {id: 11, coords: "407,102,411,109,414,114,429,115,442,121,458,118,504,102,504,94,488,89,468,84,436,92,422,102,411,102", shape: "poly"},
+        'Tibet': {id: 12, coords: "413,145,427,128,451,129,540,107,605,127,597,165,549,173,521,184,472,181,426,163,416,145,433,129", shape: "poly"},
+        'Transoxania': {id: 13, coords: "281,72,294,85,301,96,319,106,326,95,335,88,331,72,302,58,287,67,279,72", shape: "poly"},
+	};
+	let featureNamesShuffled = shuffleArray(Object.keys(features))
+
+	document.onload = initialize();
+
+
+	function initialize() {
+		buildMap();
+		buildForm();
+	}
+
+
+	function shuffleArray(array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array
+	}
+
+	function mapclick(clickedId) {
+		let locationTofind = document.controls.locationTofind.value;
+		let locationTofindID = features[locationTofind].id;
+
+		if(clickedId==locationTofindID) {
+			found.push(locationTofind);
+			// remove the item from the skipped list, if it was there:
+			skipped = skipped.filter((item) => item !== locationTofind);
+			// move to the next quiz question:
+			advance();
+		} else {
+			errors.push(locationTofind);
+			buildForm();
+			alert('Try Again');
+		}
+	}
+
+	function skip() {
+		let skippedTerm = document.controls.locationTofind.value;
+		console.log("skipping", skippedTerm);
+		if (!skipped.includes(skippedTerm)){
+			skipped.push(skippedTerm);
+		}
+		console.log("You have now skipped "+ skipped.length + " places");
+		
+		advance()
+	}
+
+	function advance() {
+		arrayPos++;
+		if(arrayPos<featureNamesShuffled.length) {
+			// If we are not at the end of our list of locations in the array 
+			// then assign the current location to the "Find" box.
+			buildForm()
+			//document.controls.locationTofind.value = featureNamesShuffled[arrayPos]; 
+			
+		} else if (skipped.length > 0) {
+			arrayPos = 0;
+			featureNamesShuffled = shuffleArray(skipped);
+			buildForm();
+			alert('Finished; going back to the' + skipped.length + ' skipped places!')
+			skipped = [];
+		} else 	if (arrayPos==featureNamesShuffled.length) {
+			// If we have come to the end of our locations list 
+			// (the array) then notify the user with "Finished!".
+			buildForm() // to display the correct number of 
+			alert('Finished!'); 
+		}
+	}
+
+	function buildMap() {
+		// build the image map:
+		let mapStr = "";
+		for (const [name, d] of Object.entries(features)) {
+		  mapStr += `<area shape="${d.shape}" coords="${d.coords}" solution="${name}" href="javascript:mapclick(${d.id});" title="">\n`
+		  // NB: using `href=` turns the cursor into a pointed finger,
+		  // while using `onclick=` keeps the cursor in the same shape.
+		}
+
+		// insert the image map into the document:
+		document.getElementById("img-map").innerHTML = mapStr;
+	}
+
+	function buildForm(){
+		console.log("BUILD THE FORM");
+
+
+		let controlStr = `
+		<center>
+		<form name="controls">
+		<font face="helvetica" size=+2">Find</font>
+		&nbsp;
+		<input type="text" name="locationTofind" value="${featureNamesShuffled[arrayPos]}" size="15" onFocus="this.blur();">
+		<br>
+		<input type="button" value="     Skip     " onClick="skip();">
+		<input type="button" value="     Quit     " onClick="window.close();">
+		<input type="button" value="Start Over" onClick="location.reload();">
+		</form>
+		<p>You have correctly identified ${found.length} of ${Object.keys(features).length} places (skipped ${skipped.length}, errors ${errors.length})</p>
+		</center>
+		`
+		document.getElementById("control-form").innerHTML = controlStr;
+	}
+
+
+
+</script>
+
+
+</body></html>

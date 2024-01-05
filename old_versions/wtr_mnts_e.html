@@ -1,0 +1,184 @@
+<html><head><script language="JavaScript">
+locations = new Array();
+locations = ["Altai Mnts.","Amu Darya R.","Aral Sea","Lk. Baikal","Lk. Balkash","Ganges R.","Himalayas","Hindu Kush","Indian Ocean","Indus R.","Lk. Issyk Kul","Karakorum","Kun Lun Mnts.","Lop Nor","Pamirs","Syr Darya R.","Tarim R.","Tien Shan Mnts.","Yangtse R.","Yellow R."];
+var arrayPos=0;
+var nav=navigator.appName;
+if(nav=="Microsoft Internet Explorer") var nav = "IE";
+
+(document.layers) ? layerobject=true : layerobject=false;
+(document.all) ? allobject=true : allobject=false;
+(document.getElementbyId) ? dom=true : dom=false;
+
+function mapclick(id, x, y) {
+if(nav=="Netscape") var test=document.controls.locationTofind.value;
+if(nav=="IE") {
+	if(controls.autoAdv.value=="on") var test=document.controls.locationTofind.value;
+	if(controls.autoAdv.value=="off") var test=document.controls.userSelectBox.value;
+	}
+if(id==test) {
+			if(layerobject)	{ // Code for Netscape
+				document.layers[''+id+''].visibility = "show";
+				document.layers[''+id+''].left=x; 
+				document.layers[''+id+''].top=y;
+				}
+			else if(allobject) { // Code for IE
+				document.all[''+id+''].style.visibility = "visible";
+				document.all[''+id+''].style.left=x;
+				document.all[''+id+''].style.top=y;
+				}
+
+			else if(dom) { // Code for other browsers
+				 document.getElementById(''+id+'').style.visibility="visible";
+				 document.getElementById(''+id+'').style.left=x+"px";
+				 document.getElementById(''+id+'').style.top=y+"px";
+				}
+			if(nav=="Netscape") advance();
+			if(nav=="IE" && controls.autoAdv.value=="on") advance();
+		}
+	if(id != test) alert('Try Again');
+}
+
+function advance() {
+	arrayPos++;
+	if(arrayPos<locations.length) document.controls.locationTofind.value = locations[arrayPos]; // If we are not at the end of our list of locations in the array then assign the current location to the "Find" box.
+	if(arrayPos==locations.length) alert('Finished!'); // If we have come to the end of our locations list (the array) then notify the user with "Finished!".
+}
+
+function autoOn() {
+	controls.autoAdv.value="on";
+	controls.userSelectBox.style.visibility="hidden";
+	autoAdvance.style.visibility="visible";
+	right.style.background="#FFFFFF";
+	left.style.background="#FFFFCC";
+}
+
+function autoOff() {
+	controls.autoAdv.value="off";
+	document.controls.userSelectBox.style.visibility="visible";
+	autoAdvance.style.visibility="hidden";
+	right.style.background="#FFFFCC";	
+	left.style.background="#FFFFFF";
+}
+
+function checkMode() {
+	if(controls.autoAdv.value=="on") advance();
+}
+	
+</script>
+
+
+<title>Water and Mountains--East</title></head>
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<img src="wtr_mnts_e.jpg" id="map" usemap="#wtr_mnts_e" border="0" style="z-index:0;">
+
+<map name="wtr_mnts_e">
+<area shape="poly" coords="218,53,228,70,277,86,294,92,295,64,280,43,260,33" href="javascript:mapclick('Altai Mnts.', 243,49);" title="">
+<area shape="poly" coords="13,116,24,117,39,127,47,131,59,147,74,156,76,164,64,165,47,151,32,135,12,121" href="javascript:mapclick('Amu Darya R.', 7,133);" title="">
+<area shape="poly" coords="32,86,22,86,16,92,10,102,12,109,19,108,29,110,32,104,39,100,32,92" href="javascript:mapclick('Aral Sea', 8,90);" title="">
+<area shape="poly" coords="136,87,149,82,183,82,184,88,176,91,150,91,147,101,138,104,134,97,127,87" href="javascript:mapclick('Lk. Balkash', 135,80);" title="">
+<area shape="poly" coords="430,10,418,24,400,36,383,39,383,49,413,49,426,38,445,22,445,7" href="javascript:mapclick('Lk. Baikal', 391,24);" title="">
+<area shape="poly" coords="171,232,179,232,192,245,208,256,230,257,252,258,263,267,275,273,276,280,264,279,251,268,230,266,215,267,209,268,191,257,177,245" href="javascript:mapclick('Ganges R.', 173,252);" title="">
+<area shape="poly" coords="152,186,139,197,166,216,195,233,218,241,245,247,275,250,311,246,314,219,295,215,266,232,235,227,194,211,146,191" href="javascript:mapclick('Himalayas', 180,215);" title="">
+<area shape="poly" coords="92,174,59,179,45,191,50,200,72,210,78,214,86,223,103,225,105,207,125,187,125,173" href="javascript:mapclick('Hindu Kush', 65,183);" title="">
+<area shape="poly" coords="3,261,3,271,16,277,24,285,22,295,8,317,1,323,2,395,155,397,145,373,124,303,113,303,97,291,87,279,76,265" href="javascript:mapclick('Indian Ocean', 22,331);" title="">
+<area shape="poly" coords="122,193,129,193,122,204,117,227,117,237,97,253,95,273,86,268,86,258,86,243,107,228,113,203" href="javascript:mapclick('Indus R.', 93,220);" title="">
+<area shape="poly" coords="160,121,163,124,171,124,177,118,166,,118,159,120" href="javascript:mapclick('Lk. Issyk Kul', 165,100);" title="">
+<area shape="poly" coords="124,186,156,188,156,172,131,173" href="javascript:mapclick('Karakorum', 128,174);" title="">
+<area shape="poly" coords="158,152,159,168,204,178,236,166,236,161,205,165,167,158,154,150" href="javascript:mapclick('Kun Lun Mnts.', 161,163);" title="">
+<area shape="poly" coords="264,131,274,131,275,143,275,148,265,151,262,150,261,139" href="javascript:mapclick('Lop Nor', 259,130);" title="">
+<area shape="poly" coords="144,139,104,146,86,156,104,160,106,168,153,167" href="javascript:mapclick('Pamirs', 110,147);" title="">
+<area shape="poly" coords="47,90,47,98,76,112,88,136,96,136,105,142,106,134,100,129,104,114,54,89" href="javascript:mapclick('Syr Darya R.', 59,107);" title="">
+<area shape="poly" coords="193, 134,192,140,217,142,229,139,244,,142,251,144,251,140,237,132,218,135,191,135" href="javascript:mapclick('Tarim R.', 193,134);" title="">
+<area shape="poly" coords="152,135,155,145,187,139,199,132,247,127,259,121,257,110,245,109,186,121" href="javascript:mapclick('Tien Shan Mnts.', 180,115);" title="">
+<area shape="poly" coords="379,169,390,169,398,157,409,147,410,136,424,129,453,135,453,148,450,160,448,171,447,178,476,178,509,159,511,164,499,170,483,185,475,187,451,187,439,187,438,176,442,151,446,142,419,141,408,163,396,173,379,173" href="javascript:mapclick('Yellow R.', 421,166);" title="">
+<area shape="poly" coords="520,201,520,210,508,220,489,232,477,225,468,229,455,230,443,221,430,220,397,241,387,241,381,233,389,228,410,223,437,208,449,208,462,217,474,214,485,219,499,213,517,200" href="javascript:mapclick('Yangtse R.', 446,215);" title="">
+</map>
+
+<script language="Javascript">
+if(nav=="Netscape") {
+document.write('<center>');
+document.write('<form name="controls">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Altai Mnts." size="15" onFocus="this.blur();">');
+document.write('<br>');
+document.write('<input type="button" value="     Skip     " onClick="advance();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload();">');
+document.write('</form>');
+document.write('</center>');
+
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} //end Netscape code
+
+
+if(nav=="IE") {
+document.write('<form name="controls">');
+document.write('<center>');
+document.write('<table border="0">');
+document.write('<td>');
+
+document.write('<table border="2" id="left" width="150" bgcolor="#FFFFCC">');
+document.write('<td align="center">Auto Advance <input type="radio" name="mode" value="on" onClick="autoOn();" checked></td>');
+document.write('<tr>');
+document.write('<td>');
+document.write('<div id="autoAdvance">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Altai Mnts." size="15" onFocus="this.blur();">');
+document.write('</div>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('<td>');
+
+document.write('<table id="right" cellpadding="3" border="2" width="150" bgcolor="#FFFFFF">');
+document.write('<td align="center">User Selection <input type="radio" name="mode" value="off" onClick="autoOff();"></td>');
+document.write('<tr>');
+document.write('<td align="center">');
+document.write('<select name="userSelectBox" style="visibility: hidden;">');
+	for(count=0; count<locations.length; count++) {
+	document.write('<option value="' +locations[count]+ '">' +locations[count]+ '</option>\n');
+	}
+document.write('</select>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('</table>');
+document.write('<input type="button" value="     Skip     " onClick="checkMode();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload()">');
+document.write('<input type="hidden" name="autoAdv" value="on">');
+document.write('</form>');
+document.write('</center>');
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hidden; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} 
+</script><center><form name="controls"><font face="helvetica" size="+2&quot;">Find</font>&nbsp;<input type="text" name="locationTofind" value="Altai Mnts." size="15" onfocus="this.blur();"><br><input type="button" value="     Skip     " onclick="advance();"><input type="button" value="     Quit     " onclick="window.close();"><input type="button" value="Start Over" onclick="location.reload();"></form></center><div id="Altai Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Altai Mnts.</div>
+<div id="Amu Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Amu Darya R.</div>
+<div id="Aral Sea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Aral Sea</div>
+<div id="Lk. Baikal" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Lk. Baikal</div>
+<div id="Lk. Balkash" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Lk. Balkash</div>
+<div id="Ganges R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Ganges R.</div>
+<div id="Himalayas" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Himalayas</div>
+<div id="Hindu Kush" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Hindu Kush</div>
+<div id="Indian Ocean" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Indian Ocean</div>
+<div id="Indus R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Indus R.</div>
+<div id="Lk. Issyk Kul" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Lk. Issyk Kul</div>
+<div id="Karakorum" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Karakorum</div>
+<div id="Kun Lun Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Kun Lun Mnts.</div>
+<div id="Lop Nor" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Lop Nor</div>
+<div id="Pamirs" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Pamirs</div>
+<div id="Syr Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Syr Darya R.</div>
+<div id="Tarim R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Tarim R.</div>
+<div id="Tien Shan Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Tien Shan Mnts.</div>
+<div id="Yangtse R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Yangtse R.</div>
+<div id="Yellow R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Yellow R.</div>
+
+
+<center><font size="-1">© 2002 Lance Jenott</font></center>
+
+
+</body></html>

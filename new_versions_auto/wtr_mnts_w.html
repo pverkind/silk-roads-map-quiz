@@ -1,0 +1,155 @@
+<html>
+<head>
+	<title>Map Quiz: wtr_mnts_w</title>
+</head>
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<center>
+    <img src="wtr_mnts_w.jpg" id="map" usemap="#img-map" border="0" style="z-index:0;">
+	<map id="img-map" name="img-map"></map>
+</center>
+
+<div id="control-form"></div>
+<center><font size="-1">© 2002 Lance Jenott (updated by Peter Verkinderen)</font></center>
+
+
+<script language="Javascript">
+
+	var arrayPos=0;
+	var skipped = [];
+	var found = [];
+	var errors = [];
+
+	var features = {
+                '??': {id: 1, coords: "291,111,301,111,359,154,360,165,344,161,289,113", shape: "poly"},
+        'Aral Sea': {id: 2, coords: "308,77,299,81,293,83,288,93,288,103,297,104,308,105,315,98,320,94,319,90,314,85,316,78,317,76", shape: "poly"},
+        'Sea of Azov': {id: 3, coords: "107,72,73,80,76,87,95,87,104,82", shape: "poly"},
+        'Lk. Balkash': {id: 4, coords: "426,76,449,70,466,72,482,72,482,82,446,82,441,94,427,96,421,82", shape: "poly"},
+        'Black Sea': {id: 5, coords: "91,95,61,101,51,89,43,82,34,82,24,96,9,113,14,122,36,125,49,119,71,117,83,120,99,126,116,126,130,124,132,115,114,106", shape: "poly"},
+        'Caspian Sea': {id: 6, coords: "236,76,214,77,201,84,187,93,188,97,190,104,194,112,198,118,214,134,209,137,203,156,214,161,225,167,246,166,244,158,247,149,237,140,233,134,233,126,231,118,231,114,217,106,213,98,214,93,218,93,224,88,235,86", shape: "poly"},
+        'Caucasus': {id: 7, coords: "117,96,188,116,200,126,192,131,139,115,116,100", shape: "poly"},
+        'Dnieper R.': {id: 8, coords: "56,5,56,0,29,1,24,21,29,27,27,41,35,51,66,62,61,68,46,74,54,79,67,74,78,70,79,60,77,54,39,38,37,13", shape: "poly"},
+        'Don R.': {id: 9, coords: "101,10,113,10,115,16,118,35,127,43,152,49,156,55,144,72,116,75,116,68,142,61,143,54,116,49,107,36", shape: "poly"},
+        'Elburz Mnts.': {id: 10, coords: "191,160,187,178,266,187,275,170,232,172,219,171", shape: "poly"},
+        'Euphrates R.': {id: 11, coords: "97,165,104,165,130,182,149,196,172,216,181,224,169,224,156,215,153,204,135,195,121,191,114,181,102,181", shape: "poly"},
+        'Hindu Kush': {id: 12, coords: "399,169,345,184,334,197,347,208,365,208,403,193,424,182", shape: "poly"},
+        'Indian Ocean': {id: 13, coords: "165,394,278,345,291,328,304,303,300,293,276,281,276,272,311,277,356,276,373,289,383,302,393,313,401,320,416,319,419,343,433,381,440,396,154,398", shape: "poly"},
+        'Indus R.': {id: 14, coords: "412,193,419,194,405,243,384,258,387,267,378,285,370,277,374,268,373,256,395,235", shape: "poly"},
+        'Mediterranean': {id: 15, coords: "78,172,76,189,70,207,60,217,42,211,19,217,2,214,1,168,19,174,34,173,61,176", shape: "poly"},
+        'Nile R.': {id: 16, coords: "31,221,41,221,41,251,55,265,59,287,59,296,35,318,35,334,39,334,52,326,59,321,66,333,67,349,60,359,64,374,72,398,43,398,43,374,45,355,58,343,57,334,42,346,26,333,25,315,33,299,46,288,44,270,30,252", shape: "poly"},
+        'Pamirs': {id: 17, coords: "399,142,377,156,399,157,401,165,440,166,440,142,420,138", shape: "poly"},
+        'Persian Gulf': {id: 18, coords: "211,231,195,233,201,248,213,260,216,274,220,266,227,267,226,281,249,283,267,265,267,260,245,264,225,251", shape: "poly"},
+        'Red Sea': {id: 19, coords: "74,251,61,251,72,272,79,287,81,295,89,302,93,311,96,331,106,340,114,360,128,371,148,389,150,389,138,348,118,321,110,312,103,287,94,281,86,267", shape: "poly"},
+        'Syr Darya R.': {id: 20, coords: "321,80,343,80,381,106,385,122,389,135,379,135,371,128,371,111,322,89", shape: "poly"},
+        '??': {id: 21, coords: "134,163,149,163,166,198,189,206,193,220,187,222,172,209,156,198", shape: "poly"},
+        'Volga R.': {id: 22, coords: "198,1,206,1,207,13,213,13,213,18,203,20,195,28,181,34,169,55,183,62,195,76,196,82,187,82,172,66,159,65,159,54,167,38,174,27,193,17,195,1", shape: "poly"},
+	};
+	let featureNamesShuffled = shuffleArray(Object.keys(features))
+
+	document.onload = initialize();
+
+
+	function initialize() {
+		buildMap();
+		buildForm();
+	}
+
+
+	function shuffleArray(array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		return array
+	}
+
+	function mapclick(clickedId) {
+		let locationTofind = document.controls.locationTofind.value;
+		let locationTofindID = features[locationTofind].id;
+
+		if(clickedId==locationTofindID) {
+			found.push(locationTofind);
+			// remove the item from the skipped list, if it was there:
+			skipped = skipped.filter((item) => item !== locationTofind);
+			// move to the next quiz question:
+			advance();
+		} else {
+			errors.push(locationTofind);
+			buildForm();
+			alert('Try Again');
+		}
+	}
+
+	function skip() {
+		let skippedTerm = document.controls.locationTofind.value;
+		console.log("skipping", skippedTerm);
+		if (!skipped.includes(skippedTerm)){
+			skipped.push(skippedTerm);
+		}
+		console.log("You have now skipped "+ skipped.length + " places");
+		
+		advance()
+	}
+
+	function advance() {
+		arrayPos++;
+		if(arrayPos<featureNamesShuffled.length) {
+			// If we are not at the end of our list of locations in the array 
+			// then assign the current location to the "Find" box.
+			buildForm()
+			//document.controls.locationTofind.value = featureNamesShuffled[arrayPos]; 
+			
+		} else if (skipped.length > 0) {
+			arrayPos = 0;
+			featureNamesShuffled = shuffleArray(skipped);
+			buildForm();
+			alert('Finished; going back to the' + skipped.length + ' skipped places!')
+			skipped = [];
+		} else 	if (arrayPos==featureNamesShuffled.length) {
+			// If we have come to the end of our locations list 
+			// (the array) then notify the user with "Finished!".
+			buildForm() // to display the correct number of 
+			alert('Finished!'); 
+		}
+	}
+
+	function buildMap() {
+		// build the image map:
+		let mapStr = "";
+		for (const [name, d] of Object.entries(features)) {
+		  mapStr += `<area shape="${d.shape}" coords="${d.coords}" solution="${name}" href="javascript:mapclick(${d.id});" title="">\n`
+		  // NB: using `href=` turns the cursor into a pointed finger,
+		  // while using `onclick=` keeps the cursor in the same shape.
+		}
+
+		// insert the image map into the document:
+		document.getElementById("img-map").innerHTML = mapStr;
+	}
+
+	function buildForm(){
+		console.log("BUILD THE FORM");
+
+
+		let controlStr = `
+		<center>
+		<form name="controls">
+		<font face="helvetica" size=+2">Find</font>
+		&nbsp;
+		<input type="text" name="locationTofind" value="${featureNamesShuffled[arrayPos]}" size="15" onFocus="this.blur();">
+		<br>
+		<input type="button" value="     Skip     " onClick="skip();">
+		<input type="button" value="     Quit     " onClick="window.close();">
+		<input type="button" value="Start Over" onClick="location.reload();">
+		</form>
+		<p>You have correctly identified ${found.length} of ${Object.keys(features).length} places (skipped ${skipped.length}, errors ${errors.length})</p>
+		</center>
+		`
+		document.getElementById("control-form").innerHTML = controlStr;
+	}
+
+
+
+</script>
+
+
+</body></html>

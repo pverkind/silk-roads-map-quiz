@@ -1,0 +1,170 @@
+<html><head><script language="JavaScript">
+// by Lance Jenott, 2002
+locations = new Array();
+locations = ["Bactria","Crimea","Ferghana","Gobi Desert","Hexi Corridor","Karakum Desert","Kashmir","Khorasan","Khorezm","Sogdia","Taklamakan Desert","Tibet","Transoxania"];
+var arrayPos=0;
+var nav=navigator.appName;
+if(nav=="Microsoft Internet Explorer") var nav = "IE";
+
+(document.layers) ? layerobject=true : layerobject=false;
+(document.all) ? allobject=true : allobject=false;
+(document.getElementbyId) ? dom=true : dom=false;
+
+function mapclick(id, x, y) {
+if(nav=="Netscape") var test=document.controls.locationTofind.value;
+if(nav=="IE") {
+	if(controls.autoAdv.value=="on") var test=document.controls.locationTofind.value;
+	if(controls.autoAdv.value=="off") var test=document.controls.userSelectBox.value;
+	}
+if(id==test) {
+			if(layerobject)	{ // Code for Netscape
+				document.layers[''+id+''].visibility = "show";
+				document.layers[''+id+''].left=x; 
+				document.layers[''+id+''].top=y;
+				}
+			else if(allobject) { // Code for IE
+				document.all[''+id+''].style.visibility = "visible";
+				document.all[''+id+''].style.left=x;
+				document.all[''+id+''].style.top=y;
+				}
+			else if(dom) { // Code for other browsers
+				 document.getElementById(''+id+'').style.visibility="visible";
+				 document.getElementById(''+id+'').style.left=x+"px";
+				 document.getElementById(''+id+'').style.top=y+"px";
+				}
+			if(nav=="Netscape") advance();
+			if(nav=="IE" && controls.autoAdv.value=="on") advance();
+		}
+	if(id != test) alert('Try Again');
+}
+
+function advance() {
+	arrayPos++;
+	if(arrayPos<locations.length) document.controls.locationTofind.value = locations[arrayPos]; // If we are not at the end of our list of locations in the array then assign the current location to the "Find" box.
+	if(arrayPos==locations.length) alert('Finished!'); // If we have come to the end of our locations list (the array) then notify the user with "Finished!".
+}
+
+function autoOn() {
+	controls.autoAdv.value="on";
+	controls.userSelectBox.style.visibility="hidden";
+	autoAdvance.style.visibility="visible";
+	right.style.background="#FFFFFF";
+	left.style.background="#FFFFCC";
+}
+
+function autoOff() {
+	controls.autoAdv.value="off";
+	document.controls.userSelectBox.style.visibility="visible";
+	autoAdvance.style.visibility="hidden";
+	right.style.background="#FFFFCC";	
+	left.style.background="#FFFFFF";
+}
+
+function checkMode() {
+	if(controls.autoAdv.value=="on") advance();
+}
+	
+</script>
+
+
+<title>Regions</title></head>
+
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<img src="regions.jpg" id="map" usemap="#regions" border="0" style="z-index:0;">
+
+<map name="regions">
+<area shape="poly" coords="302,136,317,167,350,165,363,147,354,131,334,130,303,142" href="javascript:mapclick('Bactria', 313,130);">
+<area shape="poly" coords="61,54,72,62,94,54,83,52,73,49,62,52" href="javascript:mapclick('Crimea',58,43);">
+<area shape="poly" coords="352,88,354,97,380,94,382,87,351,88" href="javascript:mapclick('Ferghana', 346,81);">
+<area shape="poly" coords="626,45,614,58,624,70,725,68,748,34,726,21,702,16,686,35,626,45" href="javascript:mapclick('Gobi Desert', 647,46);">
+<area shape="poly" coords="559,88,562,98,586,103,610,111,610,116,621,116,635,110,613,98,584,91,559,88" href="javascript:mapclick('Hexi Corridor', 545,84);">
+<area shape="poly" coords="229,95,232,109,245,106,257,105,282,113,302,118,293,95,222,94" href="javascript:mapclick('Karakum Desert', 220,89);">
+<area shape="poly" coords="376,133,405,135,405,121,376,120,374,135" href="javascript:mapclick('Kashmir', 364,120);">
+<area shape="poly" coords="234,113,237,145,250,158,288,164,301,133,283,120,252,111,232,117" href="javascript:mapclick('Khorasan', 239,125);">
+<area shape="poly" coords="231,65,234,84,273,83,271,76,267,63,230,66" href="javascript:mapclick('Khorezm', 218,67);">
+<area shape="poly" coords="324,113,318,126,360,123,361,108,323,115" href="javascript:mapclick('Sogdia', 317,110);">
+<area shape="poly" coords="407,102,411,109,414,114,429,115,442,121,458,118,504,102,504,94,488,89,468,84,436,92,422,102,411,102" href="javascript:mapclick('Taklamakan Desert', 415,93);">
+<area shape="poly" coords="413,145,427,128,451,129,540,107,605,127,597,165,549,173,521,184,472,181,426,163,416,145,433,129" href="javascript:mapclick('Tibet', 462,135);">
+<area shape="poly" coords="281,72,294,85,301,96,319,106,326,95,335,88,331,72,302,58,287,67,279,72" href="javascript:mapclick('Transoxania', 297,65);">
+</map>
+
+<script language="Javascript">
+if(nav=="Netscape") {
+document.write('<center>');
+document.write('<form name="controls">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Bactria" size="15" onFocus="this.blur();">');
+document.write('<br>');
+document.write('<input type="button" value="     Skip     " onClick="advance();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload();">');
+document.write('</form>');
+document.write('</center>');
+
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} //end Netscape code
+
+
+if(nav=="IE") {
+document.write('<form name="controls">');
+document.write('<center>');
+document.write('<table border="0">');
+document.write('<td>');
+
+document.write('<table border="2" id="left" width="150" bgcolor="#FFFFCC">');
+document.write('<td align="center">Auto Advance <input type="radio" name="mode" value="on" onClick="autoOn();" checked></td>');
+document.write('<tr>');
+document.write('<td>');
+document.write('<div id="autoAdvance">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Bactria" size="15" onFocus="this.blur();">');
+document.write('</div>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('<td>');
+
+document.write('<table id="right" cellpadding="3" border="2" width="150" bgcolor="#FFFFFF">');
+document.write('<td align="center">User Selection <input type="radio" name="mode" value="off" onClick="autoOff();"></td>');
+document.write('<tr>');
+document.write('<td align="center">');
+document.write('<select name="userSelectBox" style="visibility: hidden;">');
+	for(count=0; count<locations.length; count++) {
+	document.write('<option value="' +locations[count]+ '">' +locations[count]+ '</option>\n');
+	}
+document.write('</select>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('</table>');
+document.write('<input type="button" value="     Skip     " onClick="checkMode();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload()">');
+document.write('<input type="hidden" name="autoAdv" value="on">');
+document.write('</form>');
+document.write('</center>');
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hidden; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} 
+</script><center><form name="controls"><font face="helvetica" size="+2&quot;">Find</font>&nbsp;<input type="text" name="locationTofind" value="Bactria" size="15" onfocus="this.blur();"><br><input type="button" value="     Skip     " onclick="advance();"><input type="button" value="     Quit     " onclick="window.close();"><input type="button" value="Start Over" onclick="location.reload();"></form></center><div id="Bactria" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Bactria</div>
+<div id="Crimea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Crimea</div>
+<div id="Ferghana" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Ferghana</div>
+<div id="Gobi Desert" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Gobi Desert</div>
+<div id="Hexi Corridor" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Hexi Corridor</div>
+<div id="Karakum Desert" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Karakum Desert</div>
+<div id="Kashmir" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Kashmir</div>
+<div id="Khorasan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Khorasan</div>
+<div id="Khorezm" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Khorezm</div>
+<div id="Sogdia" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Sogdia</div>
+<div id="Taklamakan Desert" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Taklamakan Desert</div>
+<div id="Tibet" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Tibet</div>
+<div id="Transoxania" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Transoxania</div>
+
+
+<center><font size="-1">© 2002 Lance Jenott</font></center>
+
+</body></html>

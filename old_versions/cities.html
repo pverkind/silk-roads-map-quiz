@@ -1,0 +1,195 @@
+<html><head><script language="JavaScript">
+// by Lance Jenott, 2002
+locations = new Array();
+locations = ["Agra","Aleppo","Baghdad","Basra","Beijing","Bukhara","Chang`an","Constantinople","Damascus","Delhi","Dunhuang","Guangzhou","Isfahan","Jerusalem","Kabul","Karakorum","Kashgar","Kesh","Khotan","Marv","Ormuz","Samarkand","Tabriz","Taxila","Urgench"];
+var arrayPos=0;
+var nav=navigator.appName;
+if(nav=="Microsoft Internet Explorer") var nav = "IE";
+
+(document.layers) ? layerobject=true : layerobject=false;
+(document.all) ? allobject=true : allobject=false;
+(document.getElementbyId) ? dom=true : dom=false;
+
+function mapclick(id, x, y) {
+if(nav=="Netscape") var test=document.controls.locationTofind.value;
+if(nav=="IE") {
+	if(controls.autoAdv.value=="on") var test=document.controls.locationTofind.value;
+	if(controls.autoAdv.value=="off") var test=document.controls.userSelectBox.value;
+	}
+if(id==test) {
+			if(layerobject)	{ // Code for Netscape
+				document.layers[''+id+''].visibility = "show";
+				document.layers[''+id+''].left=x; 
+				document.layers[''+id+''].top=y;
+				}
+			else if(allobject) { // Code for IE
+				document.all[''+id+''].style.visibility = "visible";
+				document.all[''+id+''].style.left=x;
+				document.all[''+id+''].style.top=y;
+				}
+
+			else if(dom) { // Code for other browsers
+				 document.getElementById(''+id+'').style.visibility="visible";
+				 document.getElementById(''+id+'').style.left=x+"px";
+				 document.getElementById(''+id+'').style.top=y+"px";
+				}
+			if(nav=="Netscape") advance();
+			if(nav=="IE" && controls.autoAdv.value=="on") advance();
+		}
+	if(id != test) alert('Try Again');
+}
+
+function advance() {
+	arrayPos++;
+	if(arrayPos<locations.length) document.controls.locationTofind.value = locations[arrayPos]; // If we are not at the end of our list of locations in the array then assign the current location to the "Find" box.
+	if(arrayPos==locations.length) alert('Finished!'); // If we have come to the end of our locations list (the array) then notify the user with "Finished!".
+}
+
+function autoOn() {
+	controls.autoAdv.value="on";
+	controls.userSelectBox.style.visibility="hidden";
+	autoAdvance.style.visibility="visible";
+	right.style.background="#FFFFFF";
+	left.style.background="#FFFFCC";
+}
+
+function autoOff() {
+	controls.autoAdv.value="off";
+	document.controls.userSelectBox.style.visibility="visible";
+	autoAdvance.style.visibility="hidden";
+	right.style.background="#FFFFCC";	
+	left.style.background="#FFFFFF";
+}
+
+function checkMode() {
+	if(controls.autoAdv.value=="on") advance();
+}
+	
+</script>
+
+
+<title>Cities of the Silk Road</title></head>
+
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<img src="cities.jpg" id="map" usemap="#cities" border="0" style="z-index:0;">
+
+<map name="cities">
+<area shape="rect" coords="407,188,417,198" href="javascript:mapclick('Agra', 416, 185);">
+<area shape="rect" coords="94,122,104,132" href="javascript:mapclick('Aleppo', 99, 109);">
+<area shape="rect" coords="152,143,160,153" href="javascript:mapclick('Baghdad', 145, 127);">
+<area shape="rect" coords="177,165,187,175" href="javascript:mapclick('Basra', 185,168);">
+<area shape="rect" coords="712,93,722,103" href="javascript:mapclick('Beijing', 712, 79);">
+<area shape="rect" coords="299,91,309,101" href="javascript:mapclick('Bukhara', 296, 76);">
+<area shape="rect" coords="657,135,667,145" href="javascript:mapclick('Chang`an', 665, 125);">
+<area shape="rect" coords="22,80,30,92" href="javascript:mapclick('Constantinople', 27, 67);">
+<area shape="rect" coords="88,136,98,144" href="javascript:mapclick('Damascus', 28, 127);">
+<area shape="rect" coords="403,175,413,185" href="javascript:mapclick('Delhi', 414,166);">
+<area shape="rect" coords="539,93,549,103" href="javascript:mapclick('Dunhuang', 550,85);">
+<area shape="rect" coords="683,221,693,231" href="javascript:mapclick('Guangzhou', 686,207);">
+<area shape="rect" coords="199,145,209,155" href="javascript:mapclick('Isfahan', 206,146);">
+<area shape="rect" coords="80,152,90,162" href="javascript:mapclick('Jerusalem', 84,158);">
+<area shape="rect" coords="351,131,361,141" href="javascript:mapclick('Kabul', 363,123);">
+<area shape="rect" coords="614,33,624,43" href="javascript:mapclick('Karakorum', 622,21);">
+<area shape="rect" coords="396,97,408,108" href="javascript:mapclick('Kashgar', 404,87);">
+<area shape="rect" coords="334,104,343,113" href="javascript:mapclick('Kesh', 345,99);">
+<area shape="rect" coords="419,112,429,122" href="javascript:mapclick('Khotan', 429,107);">
+<area shape="rect" coords="278,108,288,118" href="javascript:mapclick('Marv', 290,105);">
+<area shape="rect" coords="239,196,249,206" href="javascript:mapclick('Ormuz', 250,194);">
+<area shape="rect" coords="326,92,336,102" href="javascript:mapclick('Samarkand', 330,85);">
+<area shape="rect" coords="163,104,173,114" href="javascript:mapclick('Tabriz', 168,91);">
+<area shape="rect" coords="365,153,375,163" href="javascript:mapclick('Taxila', 370,139);">
+<area shape="rect" coords="267,76,277,86" href="javascript:mapclick('Urgench', 272,61);">
+</map>
+
+<script language="Javascript">
+if(nav=="Netscape") {
+document.write('<center>');
+document.write('<form name="controls">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Agra" size="15" onFocus="this.blur();">');
+document.write('<br>');
+document.write('<input type="button" value="     Skip     " onClick="advance();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload();">');
+document.write('</form>');
+document.write('</center>');
+
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} //end Netscape code
+
+
+if(nav=="IE") {
+document.write('<form name="controls">');
+document.write('<center>');
+document.write('<table border="0">');
+document.write('<td>');
+
+document.write('<table border="2" id="left" width="150" bgcolor="#FFFFCC">');
+document.write('<td align="center">Auto Advance <input type="radio" name="mode" value="on" onClick="autoOn();" checked></td>');
+document.write('<tr>');
+document.write('<td>');
+document.write('<div id="autoAdvance">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Agra" size="15" onFocus="this.blur();">');
+document.write('</div>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('<td>');
+
+document.write('<table id="right" cellpadding="3" border="2" width="150" bgcolor="#FFFFFF">');
+document.write('<td align="center">User Selection <input type="radio" name="mode" value="off" onClick="autoOff();"></td>');
+document.write('<tr>');
+document.write('<td align="center">');
+document.write('<select name="userSelectBox" style="visibility: hidden;">');
+	for(count=0; count<locations.length; count++) {
+	document.write('<option value="' +locations[count]+ '">' +locations[count]+ '</option>\n');
+	}
+document.write('</select>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('</table>');
+document.write('<input type="button" value="     Skip     " onClick="checkMode();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload()">');
+document.write('<input type="hidden" name="autoAdv" value="on">');
+document.write('</form>');
+document.write('</center>');
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hidden; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} 
+</script><center><form name="controls"><font face="helvetica" size="+2&quot;">Find</font>&nbsp;<input type="text" name="locationTofind" value="Agra" size="15" onfocus="this.blur();"><br><input type="button" value="     Skip     " onclick="advance();"><input type="button" value="     Quit     " onclick="window.close();"><input type="button" value="Start Over" onclick="location.reload();"></form></center><div id="Agra" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Agra</div>
+<div id="Aleppo" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Aleppo</div>
+<div id="Baghdad" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Baghdad</div>
+<div id="Basra" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Basra</div>
+<div id="Beijing" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Beijing</div>
+<div id="Bukhara" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Bukhara</div>
+<div id="Chang`an" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Chang`an</div>
+<div id="Constantinople" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Constantinople</div>
+<div id="Damascus" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Damascus</div>
+<div id="Delhi" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Delhi</div>
+<div id="Dunhuang" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Dunhuang</div>
+<div id="Guangzhou" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Guangzhou</div>
+<div id="Isfahan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Isfahan</div>
+<div id="Jerusalem" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Jerusalem</div>
+<div id="Kabul" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Kabul</div>
+<div id="Karakorum" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Karakorum</div>
+<div id="Kashgar" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Kashgar</div>
+<div id="Kesh" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Kesh</div>
+<div id="Khotan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Khotan</div>
+<div id="Marv" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Marv</div>
+<div id="Ormuz" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Ormuz</div>
+<div id="Samarkand" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Samarkand</div>
+<div id="Tabriz" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Tabriz</div>
+<div id="Taxila" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Taxila</div>
+<div id="Urgench" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Urgench</div>
+
+
+<center><font size="-1">© 2002 Lance Jenott</font></center>
+
+</body></html>

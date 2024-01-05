@@ -1,0 +1,202 @@
+<html><head><script language="JavaScript">
+// by Lance Jenott, 2002
+locations = new Array();
+locations = ["Aksu","Altun Shan Mnts.","Anxi","Charchlyk","Cherchen","Cherchen R.","Dunhuang","Hami","Lk. Issyk Kul","Karakorum Mnts.","Kashgar","Khotan Darya R.","Khotan","Koria","Kucha","Kun Lun Mnts.","Lop Nor","Loulan","Miran","Niya","Taklamakan Desert","Tashkorgan","Tarim R.","Tien Shan Mnts.","Turfan","Yangqi","Yanguan","Yarkand Darya R.","Yumenguan"];
+var arrayPos=0;
+var nav=navigator.appName;
+if(nav=="Microsoft Internet Explorer") var nav = "IE";
+
+(document.layers) ? layerobject=true : layerobject=false;
+(document.all) ? allobject=true : allobject=false;
+(document.getElementbyId) ? dom=true : dom=false;
+
+function mapclick(id, x, y) {
+if(nav=="Netscape") var test=document.controls.locationTofind.value;
+if(nav=="IE") {
+	if(controls.autoAdv.value=="on") var test=document.controls.locationTofind.value;
+	if(controls.autoAdv.value=="off") var test=document.controls.userSelectBox.value;
+	}
+if(id==test) {
+			if(layerobject)	{ // Code for Netscape
+				document.layers[''+id+''].visibility = "show";
+				document.layers[''+id+''].left=x; 
+				document.layers[''+id+''].top=y;
+				}
+			else if(allobject) { // Code for IE
+				document.all[''+id+''].style.visibility = "visible";
+				document.all[''+id+''].style.left=x;
+				document.all[''+id+''].style.top=y;
+				}
+			else if(dom) { // Code for other browsers
+				 document.getElementById(''+id+'').style.visibility="visible";
+				 document.getElementById(''+id+'').style.left=x+"px";
+				 document.getElementById(''+id+'').style.top=y+"px";
+				}
+			if(nav=="Netscape") advance();
+			if(nav=="IE" && controls.autoAdv.value=="on") advance();
+		}
+	if(id != test) alert('Try Again');
+}
+
+function advance() {
+	arrayPos++;
+	if(arrayPos<locations.length) document.controls.locationTofind.value = locations[arrayPos]; // If we are not at the end of our list of locations in the array then assign the current location to the "Find" box.
+	if(arrayPos==locations.length) alert('Finished!'); // If we have come to the end of our locations list (the array) then notify the user with "Finished!".
+}
+
+function autoOn() {
+	controls.autoAdv.value="on";
+	controls.userSelectBox.style.visibility="hidden";
+	autoAdvance.style.visibility="visible";
+	right.style.background="#FFFFFF";
+	left.style.background="#FFFFCC";
+}
+
+function autoOff() {
+	controls.autoAdv.value="off";
+	document.controls.userSelectBox.style.visibility="visible";
+	autoAdvance.style.visibility="hidden";
+	right.style.background="#FFFFCC";	
+	left.style.background="#FFFFFF";
+}
+
+function checkMode() {
+	if(controls.autoAdv.value=="on") advance();
+}
+	
+</script>
+
+
+<title>The Tarim Basin</title></head>
+
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<img src="tarim.jpg" id="map" usemap="#tarim" border="0" style="z-index:0;">
+
+<map name="tarim">
+<area shape="rect" coords="210,88,220,96" href="javascript:mapclick('Aksu', 215,73);">
+<area shape="poly" coords="453,161,450,173,588,154,588,137,503,150,453,161" href="javascript:mapclick('Altun Shan Mnts.', 479,148);">
+<area shape="rect" coords="625,88,635,98" href="javascript:mapclick('Anxi', 634,74);">
+<area shape="rect" coords="378,171,388,180" href="javascript:mapclick('Charchlyk', 380,172);">
+<area shape="rect" coords="337,187,345,195" href="javascript:mapclick('Cherchen', 345,187);">
+<area shape="poly" coords="372,160,383,162,363,174,348,182,340,181,349,173,372,160" href="javascript:mapclick('Cherchen R.', 285,161);">
+<area shape="rect" coords="589,106,599,114" href="javascript:mapclick('Dunhuang', 598,106);">
+<area shape="rect" coords="528,17,538,27" href="javascript:mapclick('Hami', 537,17);">
+<area shape="poly" coords="113,33,114,37,131,42,155,38,163,31,164,26,113,33" href="javascript:mapclick('Lk. Issyk Kul', 101,17);">
+<area shape="poly" coords="9,217,6,257,143,261,78,209,9,217" href="javascript:mapclick('Karakorum Mnts.', 9,230);">
+<area shape="rect" coords="196,202,204,210" href="javascript:mapclick('Khotan', 204,193);">
+<area shape="poly" coords="223,120,218,139,203,156,202,164,194,179,194,190,201,190,212,163,228,143,231,123,223,120" href="javascript:mapclick('Khotan Darya R.', 167,160);">
+<area shape="rect" coords="99,135,107,143" href="javascript:mapclick('Kashgar', 56,117);">
+<area shape="rect" coords="356,68,364,76" href="javascript:mapclick('Koria', 363,68);">
+<area shape="rect" coords="278,72,286,80" href="javascript:mapclick('Kucha', 285,65);">
+<area shape="poly" coords="110,192,114,219,161,226,199,239,267,245,267,226,233,224,197,218,181,208,110,192" href="javascript:mapclick('Kun Lun Mnts.', 125,220);">
+<area shape="poly" coords="448,111,448,131,463,131,459,110,448,111" href="javascript:mapclick('Lop Nor', 432,114);">
+<area shape="rect" coords="451,97,459,105" href="javascript:mapclick('Loulan', 455,83);">
+<area shape="rect" coords="394,160,402,168" href="javascript:mapclick('Miran', 401,150);">
+<area shape="rect" coords="270,203,283,216" href="javascript:mapclick('Niya', 282,197);">
+<area shape="poly" coords="241,127,214,190,268,193,281,180,341,165,368,148,344,103,241,124" href="javascript:mapclick('Taklamakan Desert', 238,132);">
+<area shape="rect" coords="62,182,72,190" href="javascript:mapclick('Tashkorgan', 72,182);">
+<area shape="poly" coords="233,105,281,88,304,84,328,79,366,80,366,88,318,88,287,96,236,113,235,103" href="javascript:mapclick('Tarim R.', 252,85);">
+<area shape="poly" coords="68,65,86,114,176,95,197,73,222,62,289,51,334,60,350,45,370,45,409,56,409,37,343,15,263,24,182,52,68,65" href="javascript:mapclick('Tien Shan Mnts.', 90,64);">
+<area shape="rect" coords="418,26,428,35" href="javascript:mapclick('Turfan', 428,22);">
+<area shape="rect" coords="366,56,376,66" href="javascript:mapclick('Yangqi', 372,43);">
+<area shape="rect" coords="548,117,556,125" href="javascript:mapclick('Yanguan', 555,114);">
+<area shape="poly" coords="133,164,141,150,151,144,177,126,195,119,212,115,209,122,175,143,154,153,146,164,133,164" href="javascript:mapclick('Yarkand Darya R.', 129,122);">
+<area shape="rect" coords="548,106,556,114" href="javascript:mapclick('Yumenguan', 477,95);">
+</map>
+
+<script language="Javascript">
+if(nav=="Netscape") {
+document.write('<center>');
+document.write('<form name="controls">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Aksu" size="15" onFocus="this.blur();">');
+document.write('<br>');
+document.write('<input type="button" value="     Skip     " onClick="advance();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload();">');
+document.write('</form>');
+document.write('</center>');
+
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">' + locations[count] + '</div>\n');
+	}
+} //end Netscape code
+
+
+if(nav=="IE") {
+document.write('<form name="controls">');
+document.write('<center>');
+document.write('<table border="0">');
+document.write('<td>');
+
+document.write('<table border="2" id="left" width="150" bgcolor="#FFFFCC">');
+document.write('<td align="center">Auto Advance <input type="radio" name="mode" value="on" onClick="autoOn();" checked></td>');
+document.write('<tr>');
+document.write('<td>');
+document.write('<div id="autoAdvance">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Aksu" size="15" onFocus="this.blur();">');
+document.write('</div>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('<td>');
+
+document.write('<table id="right" cellpadding="3" border="2" width="150" bgcolor="#FFFFFF">');
+document.write('<td align="center">User Selection <input type="radio" name="mode" value="off" onClick="autoOff();"></td>');
+document.write('<tr>');
+document.write('<td align="center">');
+document.write('<select name="userSelectBox" style="visibility: hidden;">');
+	for(count=0; count<locations.length; count++) {
+	document.write('<option value="' +locations[count]+ '">' +locations[count]+ '</option>\n');
+	}
+document.write('</select>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('</table>');
+document.write('<input type="button" value="     Skip     " onClick="checkMode();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload()">');
+document.write('<input type="hidden" name="autoAdv" value="on">');
+document.write('</form>');
+document.write('</center>');
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hidden; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">' + locations[count] + '</div>\n');
+	}
+} 
+</script><center><form name="controls"><font face="helvetica" size="+2&quot;">Find</font>&nbsp;<input type="text" name="locationTofind" value="Aksu" size="15" onfocus="this.blur();"><br><input type="button" value="     Skip     " onclick="advance();"><input type="button" value="     Quit     " onclick="window.close();"><input type="button" value="Start Over" onclick="location.reload();"></form></center><div id="Aksu" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Aksu</div>
+<div id="Altun Shan Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Altun Shan Mnts.</div>
+<div id="Anxi" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Anxi</div>
+<div id="Charchlyk" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Charchlyk</div>
+<div id="Cherchen" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Cherchen</div>
+<div id="Cherchen R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Cherchen R.</div>
+<div id="Dunhuang" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Dunhuang</div>
+<div id="Hami" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Hami</div>
+<div id="Lk. Issyk Kul" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Lk. Issyk Kul</div>
+<div id="Karakorum Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Karakorum Mnts.</div>
+<div id="Kashgar" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Kashgar</div>
+<div id="Khotan Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Khotan Darya R.</div>
+<div id="Khotan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Khotan</div>
+<div id="Koria" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Koria</div>
+<div id="Kucha" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Kucha</div>
+<div id="Kun Lun Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Kun Lun Mnts.</div>
+<div id="Lop Nor" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Lop Nor</div>
+<div id="Loulan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Loulan</div>
+<div id="Miran" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Miran</div>
+<div id="Niya" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Niya</div>
+<div id="Taklamakan Desert" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Taklamakan Desert</div>
+<div id="Tashkorgan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Tashkorgan</div>
+<div id="Tarim R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Tarim R.</div>
+<div id="Tien Shan Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Tien Shan Mnts.</div>
+<div id="Turfan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Turfan</div>
+<div id="Yangqi" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Yangqi</div>
+<div id="Yanguan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Yanguan</div>
+<div id="Yarkand Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Yarkand Darya R.</div>
+<div id="Yumenguan" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; color:FFFFFF; font-size:14px; font-weight:800;">Yumenguan</div>
+
+
+<center><font size="-1">© 2002 Lance Jenott</font></center>
+
+</body></html>

@@ -1,0 +1,187 @@
+<html><head><script language="JavaScript">
+locations = new Array();
+locations = ["Amu Darya R.","Aral Sea","Sea of Azov","Lk. Balkash","Black Sea","Caspian Sea","Caucasus","Dnieper R.","Don R.","Elburz Mnts.","Euphrates R.","Hindu Kush","Indian Ocean","Indus R.","Mediterranean","Nile R.","Pamirs","Persian Gulf","Red Sea","Syr Darya R.","Tigris R.","Volga R."];
+var arrayPos=0;
+var nav=navigator.appName;
+if(nav=="Microsoft Internet Explorer") var nav = "IE";
+
+(document.layers) ? layerobject=true : layerobject=false;
+(document.all) ? allobject=true : allobject=false;
+(document.getElementbyId) ? dom=true : dom=false;
+
+function mapclick(id, x, y) {
+if(nav=="Netscape") var test=document.controls.locationTofind.value;
+if(nav=="IE") {
+	if(controls.autoAdv.value=="on") var test=document.controls.locationTofind.value;
+	if(controls.autoAdv.value=="off") var test=document.controls.userSelectBox.value;
+	}
+if(id==test) {
+			if(layerobject)	{ // Code for Netscape
+				document.layers[''+id+''].visibility = "show";
+				document.layers[''+id+''].left=x; 
+				document.layers[''+id+''].top=y;
+				}
+			else if(allobject) { // Code for IE
+				document.all[''+id+''].style.visibility = "visible";
+				document.all[''+id+''].style.left=x;
+				document.all[''+id+''].style.top=y;
+				}
+
+			else if(dom) { // Code for other browsers
+				 document.getElementById(''+id+'').style.visibility="visible";
+				 document.getElementById(''+id+'').style.left=x+"px";
+				 document.getElementById(''+id+'').style.top=y+"px";
+				}
+			if(nav=="Netscape") advance();
+			if(nav=="IE" && controls.autoAdv.value=="on") advance();
+		}
+	if(id != test) alert('Try Again');
+}
+
+function advance() {
+	arrayPos++;
+	if(arrayPos<locations.length) document.controls.locationTofind.value = locations[arrayPos]; // If we are not at the end of our list of locations in the array then assign the current location to the "Find" box.
+	if(arrayPos==locations.length) alert('Finished!'); // If we have come to the end of our locations list (the array) then notify the user with "Finished!".
+}
+
+function autoOn() {
+	controls.autoAdv.value="on";
+	controls.userSelectBox.style.visibility="hidden";
+	autoAdvance.style.visibility="visible";
+	right.style.background="#FFFFFF";
+	left.style.background="#FFFFCC";
+}
+
+function autoOff() {
+	controls.autoAdv.value="off";
+	document.controls.userSelectBox.style.visibility="visible";
+	autoAdvance.style.visibility="hidden";
+	right.style.background="#FFFFCC";	
+	left.style.background="#FFFFFF";
+}
+
+function checkMode() {
+	if(controls.autoAdv.value=="on") advance();
+}
+	
+</script>
+
+
+<title>Water and Mountains--West</title></head>
+<body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+
+<img src="wtr_mnts_w.jpg" id="map" usemap="#wtr_mnts_w" border="0" style="z-index:0;">
+
+<map name="wtr_mnts_w">
+<area shape="poly" coords="291,111,301,111,359,154,360,165,344,161,289,113" href="javascript:mapclick('??', 285,124);" title="">
+<area shape="poly" coords="308,77,299,81,293,83,288,93,288,103,297,104,308,105,315,98,320,94,319,90,314,85,316,78,317,76" href="javascript:mapclick('Aral Sea', 280,84);" title="">
+<area shape="poly" coords="107,72,73,80,76,87,95,87,104,82" href="javascript:mapclick('Sea of Azov', 70,70);" title="">
+<area shape="poly" coords="426,76,449,70,466,72,482,72,482,82,446,82,441,94,427,96,421,82" href="javascript:mapclick('Lk. Balkash', 424,63);" title="">
+<area shape="poly" coords="91,95,61,101,51,89,43,82,34,82,24,96,9,113,14,122,36,125,49,119,71,117,83,120,99,126,116,126,130,124,132,115,114,106" href="javascript:mapclick('Black Sea', 15,104);" title="">
+<area shape="poly" coords="236,76,214,77,201,84,187,93,188,97,190,104,194,112,198,118,214,134,209,137,203,156,214,161,225,167,246,166,244,158,247,149,237,140,233,134,233,126,231,118,231,114,217,106,213,98,214,93,218,93,224,88,235,86" href="javascript:mapclick('Caspian Sea', 205,115);" title="">
+<area shape="poly" coords="117,96,188,116,200,126,192,131,139,115,116,100" href="javascript:mapclick('Caucasus', 130,104);" title="">
+<area shape="poly" coords="56,5,56,0,29,1,24,21,29,27,27,41,35,51,66,62,61,68,46,74,54,79,67,74,78,70,79,60,77,54,39,38,37,13" href="javascript:mapclick('Dnieper R.', 5,28);" title="">
+<area shape="poly" coords="101,10,113,10,115,16,118,35,127,43,152,49,156,55,144,72,116,75,116,68,142,61,143,54,116,49,107,36" href="javascript:mapclick('Don R.', 91,32);" title="">
+<area shape="poly" coords="191,160,187,178,266,187,275,170,232,172,219,171" href="javascript:mapclick('Elburz Mnts.', 200,165);" title="">
+<area shape="poly" coords="97,165,104,165,130,182,149,196,172,216,181,224,169,224,156,215,153,204,135,195,121,191,114,181,102,181" href="javascript:mapclick('Euphrates R.', 70,179);" title="">
+<area shape="poly" coords="399,169,345,184,334,197,347,208,365,208,403,193,424,182" href="javascript:mapclick('Hindu Kush', 334,185);" title="">
+<area shape="poly" coords="165,394,278,345,291,328,304,303,300,293,276,281,276,272,311,277,356,276,373,289,383,302,393,313,401,320,416,319,419,343,433,381,440,396,154,398" href="javascript:mapclick('Indian Ocean', 314,336);" title="">
+<area shape="poly" coords="412,193,419,194,405,243,384,258,387,267,378,285,370,277,374,268,373,256,395,235" href="javascript:mapclick('Indus R.', 376,224);" title="">
+<area shape="poly" coords="78,172,76,189,70,207,60,217,42,211,19,217,2,214,1,168,19,174,34,173,61,176" href="javascript:mapclick('Mediterranean', 4,195);" title="">
+<area shape="poly" coords="31,221,41,221,41,251,55,265,59,287,59,296,35,318,35,334,39,334,52,326,59,321,66,333,67,349,60,359,64,374,72,398,43,398,43,374,45,355,58,343,57,334,42,346,26,333,25,315,33,299,46,288,44,270,30,252" href="javascript:mapclick('Nile R.', 8,324);" title="">
+<area shape="poly" coords="399,142,377,156,399,157,401,165,440,166,440,142,420,138" href="javascript:mapclick('Pamirs', 394,142);" title="">
+<area shape="poly" coords="211,231,195,233,201,248,213,260,216,274,220,266,227,267,226,281,249,283,267,265,267,260,245,264,225,251" href="javascript:mapclick('Persian Gulf', 187,255);" title="">
+<area shape="poly" coords="74,251,61,251,72,272,79,287,81,295,89,302,93,311,96,331,106,340,114,360,128,371,148,389,150,389,138,348,118,321,110,312,103,287,94,281,86,267" href="javascript:mapclick('Red Sea', 70,305);" title="">
+<area shape="poly" coords="321,80,343,80,381,106,385,122,389,135,379,135,371,128,371,111,322,89" href="javascript:mapclick('Syr Darya R.', 342,100);" title="">
+<area shape="poly" coords="134,163,149,163,166,198,189,206,193,220,187,222,172,209,156,198" href="javascript:mapclick('??', 162,188);" title="">
+<area shape="poly" coords="198,1,206,1,207,13,213,13,213,18,203,20,195,28,181,34,169,55,183,62,195,76,196,82,187,82,172,66,159,65,159,54,167,38,174,27,193,17,195,1" href="javascript:mapclick('Volga R.', 166,18);" title="">
+</map>
+
+<script language="Javascript">
+if(nav=="Netscape") {
+document.write('<center>');
+document.write('<form name="controls">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Amu Darya R." size="15" onFocus="this.blur();">');
+document.write('<br>');
+document.write('<input type="button" value="     Skip     " onClick="advance();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload();">');
+document.write('</form>');
+document.write('</center>');
+
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} //end Netscape code
+
+
+if(nav=="IE") {
+document.write('<form name="controls">');
+document.write('<center>');
+document.write('<table border="0">');
+document.write('<td>');
+
+document.write('<table border="2" id="left" width="150" bgcolor="#FFFFCC">');
+document.write('<td align="center">Auto Advance <input type="radio" name="mode" value="on" onClick="autoOn();" checked></td>');
+document.write('<tr>');
+document.write('<td>');
+document.write('<div id="autoAdvance">');
+document.write('<font face="helvetica" size=+2">Find</font>&nbsp;');
+document.write('<input type="text" name="locationTofind" value="Amu Darya R." size="15" onFocus="this.blur();">');
+document.write('</div>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('<td>');
+
+document.write('<table id="right" cellpadding="3" border="2" width="150" bgcolor="#FFFFFF">');
+document.write('<td align="center">User Selection <input type="radio" name="mode" value="off" onClick="autoOff();"></td>');
+document.write('<tr>');
+document.write('<td align="center">');
+document.write('<select name="userSelectBox" style="visibility: hidden;">');
+	for(count=0; count<locations.length; count++) {
+	document.write('<option value="' +locations[count]+ '">' +locations[count]+ '</option>\n');
+	}
+document.write('</select>');
+document.write('</td>');
+document.write('</table>');
+
+document.write('</table>');
+document.write('<input type="button" value="     Skip     " onClick="checkMode();">');
+document.write('<input type="button" value="     Quit     " onClick="window.close();">');
+document.write('<input type="button" value="Start Over" onClick="location.reload()">');
+document.write('<input type="hidden" name="autoAdv" value="on">');
+document.write('</form>');
+document.write('</center>');
+for(count=0; count<locations.length; count++) {
+document.write('<div id="' +locations[count]+ '" style="position:absolute; left:0px; top:0px; visibility:hidden; z-index:5; font-size:14px; font-weight:900;">' + locations[count] + '</div>\n');
+	}
+} 
+</script><center><form name="controls"><font face="helvetica" size="+2&quot;">Find</font>&nbsp;<input type="text" name="locationTofind" value="Amu Darya R." size="15" onfocus="this.blur();"><br><input type="button" value="     Skip     " onclick="advance();"><input type="button" value="     Quit     " onclick="window.close();"><input type="button" value="Start Over" onclick="location.reload();"></form></center><div id="Amu Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Amu Darya R.</div>
+<div id="Aral Sea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Aral Sea</div>
+<div id="Sea of Azov" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Sea of Azov</div>
+<div id="Lk. Balkash" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Lk. Balkash</div>
+<div id="Black Sea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Black Sea</div>
+<div id="Caspian Sea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Caspian Sea</div>
+<div id="Caucasus" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Caucasus</div>
+<div id="Dnieper R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Dnieper R.</div>
+<div id="Don R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Don R.</div>
+<div id="Elburz Mnts." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Elburz Mnts.</div>
+<div id="Euphrates R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Euphrates R.</div>
+<div id="Hindu Kush" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Hindu Kush</div>
+<div id="Indian Ocean" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Indian Ocean</div>
+<div id="Indus R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Indus R.</div>
+<div id="Mediterranean" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Mediterranean</div>
+<div id="Nile R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Nile R.</div>
+<div id="Pamirs" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Pamirs</div>
+<div id="Persian Gulf" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Persian Gulf</div>
+<div id="Red Sea" style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Red Sea</div>
+<div id="Syr Darya R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Syr Darya R.</div>
+<div id="Tigris R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Tigris R.</div>
+<div id="Volga R." style="position:absolute; left:0px; top:0px; visibility:hide; z-index:5; font-size:14px; font-weight:900;">Volga R.</div>
+
+
+<center><font size="-1">© 2002 Lance Jenott</font></center>
+
+</body></html>

@@ -11,7 +11,7 @@
 		<select id="fileDropdown"></select>
 	</div>
 	<div id="map-container" style="margin: 10px;">
-			<img src="./img/cities.jpg" id="map-img" usemap="#img-map" style="z-index:0;">
+			<img src="" id="map-img" usemap="#img-map" style="z-index:0;">
 			<map id="img-map" name="img-map"></map>
 			<div id="answers" style="position:absolute; left:0px; top:0px;"></div>
 			<canvas id="map-canvas" style="position:absolute; pointer-events: none;"></canvas>
@@ -22,7 +22,7 @@
 					<input type="text" id="locationToFind" name="locationToFind" size="15">
 					<br/>
 					<input type="button" value="     Skip     " onClick="skip();">
-					<input type="button" value="     Show     " onClick="showLocation();">
+					<input type="button" value="     Show     " onClick="highlightLocation();">
 					<input type="button" value="  Start Over  " onClick="resetQuiz();">
 					<input type="button" value="     Quit     " onClick="window.close();">
 				</form>
@@ -49,18 +49,17 @@
 
 	document.getElementById("fileDropdown").addEventListener("change", e => resetQuiz(e.target.value));
 
-	document.addEventListener("keydown", function (e) {
+	// add an edit mode so that instructor can add features to the map (NOT YET IMPLEMENTED)
+	/*document.addEventListener("keydown", function (e) {
         if (e.ctrlKey && e.key === "e") {
-            console.log("Edit Mode!")
             e.preventDefault();
             editMode = !editMode;
         }
-    });
+    });*/ 
 
 	document.onload = initialize();
 
-	document.getElementById("map-img").addEventListener("load", e => resize());
-
+	document.getElementById("map-img").addEventListener("load", () => resize());
 
 	async function initialize() {
 		let initialQuizDataPath = await populateDropdown();
@@ -69,7 +68,6 @@
 
 	async function fetchJsonFile(filepath) {
 		data = await fetch(filepath).then(res => res.json());
-		console.log(data);
 		return data;
 	}
     
@@ -99,20 +97,19 @@
 
 	// set the size of the map container and canvas to the size of the image:
 	function resize(){
-		let mapImg = document.getElementById("map-img");
-		let bbox = mapImg.getBoundingClientRect();
-		console.log("bbox:");
-		console.log(bbox);
+		let bbox = document.getElementById("map-img").getBoundingClientRect();
+
 		let mapCont = document.getElementById("map-container");
 		mapCont.style.width = bbox.width;
 		mapCont.style.height = bbox.height;
+
 		let controlForm = document.getElementById("control-form");
 		controlForm.style.width = bbox.width;
+
 		let canvas = document.getElementById("map-canvas");
 		canvas.style.width = bbox.width;
 		canvas.width = bbox.width;
 		canvas.height = bbox.height;
-		console.log(bbox.width);
 		canvas.style.height = bbox.height;
 		canvas.style.left = bbox.x;
 		canvas.style.top = bbox.y;
@@ -158,41 +155,28 @@
 		return array
 	}
 
-	/*function average(array) {
-		if (array.length === 0) return 0;
-		let sum = array.reduce((a,b) => parseInt(a)+parseInt(b));
-		return sum / array.length;
-	}
-	function max(array){
-		return array.reduce((a,b) => parseInt(a) > parseInt(b) ? parseInt(a) : parseInt(b));
-	}
-	function min(array){
-		return array.reduce((a,b) => parseInt(a) > parseInt(b) ? parseInt(b) : parseInt(a));
-	}*/
-
 	// Handle clicks on the map:
 	function mapclick(e, clickedId) {
+		// when a location is being highlighted, clicks on the map should have no effect
+		// (students should remember the highlighted location rather than clicking it immediately):
 		if (showingLoc) {
-			console.log("you can't click the map when it's showing a place");
 			return 0;
 		}
+
+		// get the ID number of the location the student has to find:
 		let locationToFindName = document.controls.locationToFind.value;
 		let locationToFind = features[locationToFindName]
 		let locationToFindID = locationToFind.id;
 
+		// check whether the clicked location is the one the student has to find:
 		if(clickedId==locationToFindID) {
+			// add the location to the list of found places:
 			found.push(locationToFindName);
-			// remove the item from the skipped list, if it was there:
+
+			// remove the item from the list of skipped places, if it was there:
 			skipped = skipped.filter((item) => item !== locationToFindName);
-			// show the location on the map:
-			/*let coords = locationToFind.coords.split(",");
-			console.log(coords);
-			let x = average(coords.filter((el, idx) => idx % 2 === 0));
-			console.log(coords.filter((el, idx) => idx % 2 === 0));
-			console.log(x);
-			let y = average(coords.filter((el, idx) => idx % 2 === 1));
-			console.log(coords.filter((el, idx) => idx % 2 === 1));
-			console.log(y);*/
+
+			// show the location's label on the map:
 			let answer = `<div class="answer" style="pointer-events: none; position:absolute; text-align: right; left:${e.x}px; top:${e.y}px; font-size:14px;">${locationToFindName}</div>`;
 			document.getElementById("answers").innerHTML = document.getElementById("answers").innerHTML + "\n" + answer;
 
@@ -205,15 +189,14 @@
 		}
 	}
 
-	// Skip the question
+	// Skip the question to answer it later
 	function skip() {
 		let skippedTerm = document.controls.locationToFind.value;
-		console.log("skipping", skippedTerm);
+		// add the place to the list of skipped places:
 		if (!skipped.includes(skippedTerm)){
 			skipped.push(skippedTerm);
 		}
-		console.log("You have now skipped "+ skipped.length + " places");
-		
+		// move to the next place:		
 		advance()
 	}
 
@@ -222,10 +205,10 @@
 		arrayPos++;
 		if(arrayPos<featureNamesShuffled.length) {
 			// If we are not at the end of our list of locations in the array 
-			// then assign the current location to the "Find" box.
+			// then assign the new location to the "Find" box.
 			updateForm()
 		} else if (skipped.length > 0) {
-			// If we reached the end, but the user skipped places,
+			// If we reached the end of the list, but the user skipped places,
 			// give the skipped places another go:
 			arrayPos = 0;
 			featureNamesShuffled = shuffleArray(skipped);
@@ -236,36 +219,49 @@
 			// If we have reached the and there are no skipped places left, 
 			// update the feedback and notify the user that the quiz is finished.
 			updateForm() // to display the correct number of found places
-			// https://stackoverflow.com/a/16605836
+			
+			// display a coded string for the students to prove that they completed the exercise:
 			const timestamp = new Date().toUTCString();
 			const code = encrypt(`${JSON.stringify(errors)}_${quizName}_${timestamp}`);
-			console.log(code);
 			const feedback = document.getElementById("feedback");
 			feedback.innerHTML = feedback.innerHTML + "<br/><b> You have finished the quiz. Copy this code: "+code+"</b>";
-			//setTimeout(alert, 300, 'You finished the quiz! Copy this code: '+code);  
-			// NB: timeout is needed because alert is faster than updateForm!
 		}
 	}
 
+    // encrypt text in a way that makes it difficult for students 
+	// to manually forge the code by changing a few characters
+	// (unless they read this javascript code of course):
 	function encrypt (text) {
-		const salt = text[2]+text[4]+text[text.length-8]+text[text.length-5]; // take 4 chars from the text as key
+		// take 4 characters from the text as transcription key
+		const salt = text[2]+text[4]+text[text.length-8]+text[text.length-5]; 
+
+		// define functions used in the encryption:
 		const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
 		const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
 		const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
 
-		return text
+		// encrypt the text:
+		let encrypted = text
 			.split("")
 			.map(textToChars)
 			.map(applySaltToChar)
 			.map(byteHex)
-			.join("") + salt;
+			.join("")
+
+		// append the key to the encrypted text:
+		return encrypted + salt;
 	}
 
 	function decrypt (encoded) {
+		// remove the key from the end of the encoded text:
 		const salt = encoded.substr(encoded.length-4, 4);
 		encoded = encoded.substr(0, encoded.length-4);
+
+		// define functions to use in the decryption:
 		const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
 		const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+
+		// decrypt the text:
 		return encoded
 			.match(/.{1,2}/g)
 			.map((hex) => parseInt(hex, 16))
@@ -292,9 +288,6 @@
 	function buildMap(features) {
 		let mapStr = "";
 		for (const [name, d] of Object.entries(features)) {
-		  //mapStr += `<area shape="${d.shape}" coords="${d.coords}" solution="${name}" href="javascript:mapclick(${d.id});" title="">\n`
-		  // NB: using `href=` turns the cursor into a pointed finger,
-		  // while using `onclick=` keeps the cursor in the same shape.
 		  mapStr += `<area shape="${d.shape}" coords="${d.coords}" solution="${name}" href="#" onclick="mapclick(event, ${d.id}); return false;" title="">\n`
 		}
 
@@ -303,8 +296,9 @@
 	}
 
 	
-	// Show the location of a feature on the map for a short time:
-	function showLocation() {
+	// Highlight the location of a feature on the map for a short time:
+	function highlightLocation() {
+		// set showingLoc to true so that the map can't be clicked while the location is being shown:
 		showingLoc = true;
 		// get the current location:
 		let loc = document.getElementById("locationToFind");
@@ -312,42 +306,34 @@
 		// highlight location:
 		let canvas = document.getElementById("map-canvas");
 		let coords = features[loc.value].coords.split(",").map(Number);
-		console.log(coords);
-		console.log(`canvas.width: ${canvas.width}, canvas.height: ${canvas.width}`);
         var ctx = canvas.getContext('2d');
 		ctx.scale(1,1);
         ctx.fillStyle = '#f00';
         ctx.beginPath();
-		if (coords.length > 4){
-			console.log("draw polygon");
+		if (coords.length === 4){ // rectangle
+			ctx.rect(coords[0], coords[1], coords[2]-coords[0], coords[3] - coords[1]);  // x, y, width, height
+        } else {                  //polygon
 			ctx.moveTo(coords[0], coords[1]);
-			console.log(coords[0], coords[1]);
             for(let item=2 ; item < coords.length-1 ; item+=2 ){
-				console.log(coords[item], coords[item+1]);
                 ctx.lineTo( coords[item] , coords[item+1] )
 		    }
 			ctx.closePath();
 			ctx.stroke();
-        } else {
-			console.log("draw rectangle");
-			console.log([coords[0], coords[1], coords[2]-coords[0], coords[3] - coords[1]]);
-			ctx.rect(coords[0], coords[1], coords[2]-coords[0], coords[3] - coords[1]);  // x, y, width, height
-			//ctx.rect(88, 80, 10, 10);
 		}
 		ctx.fill();
 
-		// remove location highlight after 3 seconds:
+		// remove location highlight after 2 seconds:
 		setTimeout(clearCanvasAndSkip, 2000, ctx, canvas);
 	}
 
+	// Clear the location highlight and skip to the next question
 	function clearCanvasAndSkip(ctx, canvas) {
-		console.log("clearing canvas");
 		ctx.clearRect(0,0,canvas.width, canvas.height);
-		showingLoc = false;
 		skip()
+		showingLoc = false;
 	}
 
-	// build the form that contains the quiz controls
+	// build the form that contains the quiz controls:
 	function updateForm(){
 		// display the name of the feature:
 		let featureName = featureNamesShuffled[arrayPos] === undefined ? "" : featureNamesShuffled[arrayPos];
@@ -357,8 +343,6 @@
 		let feedback = `You have correctly identified ${found.length} of ${Object.keys(features).length} places (${skipped.length} skipped, ${errors.length} errors)`;
 		document.getElementById("feedback").innerHTML = feedback;
 	}
-
-
 
 </script>
 

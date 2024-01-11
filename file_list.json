@@ -1,0 +1,8 @@
+[
+  "./map_data/cities.json",
+  "./map_data/countries.json",
+  "./map_data/regions.json",
+  "./map_data/tarim.json",
+  "./map_data/wtr_mnts_e.json",
+  "./map_data/wtr_mnts_w.json"
+]

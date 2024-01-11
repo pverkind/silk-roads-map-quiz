@@ -1,17 +1,17 @@
 <html>
 <head>
-	<title>Map Quiz: tarim</title>
+	<title>Map Quiz: wtr_mnts_e</title>
 </head>
 <body bgcolor="#FFFFFF" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
 
 <div id="quiz">
-	<h1 id="quiz-title">Silk Road Map Quizzes: tarim</h1>
+	<h1 id="quiz-title" style="margin: 10px;">Silk Road Map Quizzes: wtr_mnts_e</h1>
 	<div id="instructions"></div>
 	<div id="quiz-choice" style="margin: 10px;">
 		<select id="fileDropdown"></select>
 	</div>
 	<div id="map-container" style="margin: 10px;">
-			<img src="./img/cities.jpg" id="map-img" usemap="#img-map" border="0" style="z-index:0;">
+			<img src="./img/cities.jpg" id="map-img" usemap="#img-map" style="z-index:0;">
 			<map id="img-map" name="img-map"></map>
 			<div id="answers" style="position:absolute; left:0px; top:0px;"></div>
 			<canvas id="map-canvas" style="position:absolute; pointer-events: none;"></canvas>
@@ -45,7 +45,7 @@
 	var errors = [];
 	var editMode = false;
 	var showingLoc = false;
-	var features, featureNamesShuffled;
+	var features, featureNamesShuffled, quizName;
 
 	document.getElementById("fileDropdown").addEventListener("change", e => resetQuiz(e.target.value));
 
@@ -58,6 +58,9 @@
     });
 
 	document.onload = initialize();
+
+	document.getElementById("map-img").addEventListener("load", e => resize());
+
 
 	async function initialize() {
 		let initialQuizDataPath = await populateDropdown();
@@ -72,41 +75,31 @@
     
     // Populate the dropdown menu with all available quizzes:
     async function populateDropdown() {
-        const fileDropdown = document.getElementById('fileDropdown');
-
         // Clear existing options
+		const fileDropdown = document.getElementById('fileDropdown');
         fileDropdown.innerHTML = '';
 
-        // Add options for each file in the "coords" folder
+        // Add options for each file in the "coords" folder (starting with the current file)
         const fileList = await fetchJsonFile("./file_list.json");
-        fileList.forEach((filename) => {
-            const option = document.createElement('option');
-            option.value = filename;
-            option.text = filename.split("/")[filename.split("/").length-1].split(".")[0];
-            fileDropdown.appendChild(option);
-        });
+		const currentFilename = window.location.pathname.split("/").pop().split(".")[0];
+		const fileListWithoutCurrent = fileList.filter(path => !(path.includes(currentFilename)));
+		const fileListCurrent = fileList.filter(path => (path.includes(currentFilename)));
+		[fileListCurrent, fileListWithoutCurrent].forEach((lst) => {
+			lst.forEach((filename) => {
+                const option = document.createElement('option');
+                option.value = filename;
+                option.text = filename.split("/")[filename.split("/").length-1].split(".")[0];
+                fileDropdown.appendChild(option);
+            });
+		});
 
-		return fileList[0];
+		return fileDropdown.value;
+		
     }
 
-	// Inject the quiz data into the page
-	async function setPageData(dataPath) {
-		// get the data from the json file:
-		data = await fetchJsonFile(dataPath);
-
-		// define the map's features:
-		features = data["mapping"];
-		featureNamesShuffled = shuffleArray(Object.keys(features));
-
-		// set the page title:
-		document.getElementsByTagName("title")[0].innerHTML=`Map Quiz: ${data["quiz_name"]}`;
-		document.getElementById("quiz-title").innerHTML=`Silk Roads Map Quiz: ${data["quiz_name"]}`;
-
-		// set the map image:
+	// set the size of the map container and canvas to the size of the image:
+	function resize(){
 		let mapImg = document.getElementById("map-img");
-		mapImg.setAttribute("src", data["map_image"]);
-
-		// set the size of the map container and canvas to the size of the image:
 		let bbox = mapImg.getBoundingClientRect();
 		console.log("bbox:");
 		console.log(bbox);
@@ -123,6 +116,26 @@
 		canvas.style.height = bbox.height;
 		canvas.style.left = bbox.x;
 		canvas.style.top = bbox.y;
+	}
+
+	// Inject the quiz data into the page
+	async function setPageData(dataPath) {
+		quizName = dataPath.split("/").pop().split(".")[0];
+
+		// get the data from the json file:
+		data = await fetchJsonFile(dataPath);
+
+		// define the map's features:
+		features = data["mapping"];
+		featureNamesShuffled = shuffleArray(Object.keys(features));
+
+		// set the page title:
+		document.getElementsByTagName("title")[0].innerHTML=`Map Quiz: ${data["quiz_name"]}`;
+		document.getElementById("quiz-title").innerHTML=`Silk Roads Map Quiz: ${data["quiz_name"]}`;
+
+		// set the map image:
+		let mapImg = document.getElementById("map-img");
+		mapImg.setAttribute("src", data["map_image"]);
 
 		// build the mapping:
 		buildMap(features);
@@ -223,10 +236,43 @@
 			// If we have reached the and there are no skipped places left, 
 			// update the feedback and notify the user that the quiz is finished.
 			updateForm() // to display the correct number of found places
-			setTimeout(alert, 300, 'You finished the quiz!');  
+			// https://stackoverflow.com/a/16605836
+			const timestamp = new Date().toUTCString();
+			const code = encrypt(`${JSON.stringify(errors)}_${quizName}_${timestamp}`);
+			console.log(code);
+			const feedback = document.getElementById("feedback");
+			feedback.innerHTML = feedback.innerHTML + "<br/><b> You have finished the quiz. Copy this code: "+code+"</b>";
+			//setTimeout(alert, 300, 'You finished the quiz! Copy this code: '+code);  
 			// NB: timeout is needed because alert is faster than updateForm!
 		}
 	}
+
+	function encrypt (text) {
+		const salt = text[2]+text[4]+text[text.length-8]+text[text.length-5]; // take 4 chars from the text as key
+		const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+		const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
+		const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+
+		return text
+			.split("")
+			.map(textToChars)
+			.map(applySaltToChar)
+			.map(byteHex)
+			.join("") + salt;
+	}
+
+	function decrypt (encoded) {
+		const salt = encoded.substr(encoded.length-4, 4);
+		encoded = encoded.substr(0, encoded.length-4);
+		const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+		const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+		return encoded
+			.match(/.{1,2}/g)
+			.map((hex) => parseInt(hex, 16))
+			.map(applySaltToChar)
+			.map((charCode) => String.fromCharCode(charCode))
+			.join("");
+	};
 
 	// (re)start the selected quiz:
 	function resetQuiz() {

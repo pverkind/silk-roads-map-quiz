@@ -1,0 +1,132 @@
+{
+  "quiz_name": "Cities of the Silk Road",
+  "quiz_filename": "cities",
+  "map_image": "../img/cities.jpg",
+  "mapping": {
+    "Agra": {
+      "id": 1,
+      "shape": "rect",
+      "coords": "407,188,417,198"
+    },
+    "Aleppo": {
+      "id": 2,
+      "shape": "rect",
+      "coords": "94,122,104,132"
+    },
+    "Baghdad": {
+      "id": 3,
+      "shape": "rect",
+      "coords": "152,143,160,153"
+    },
+    "Basra": {
+      "id": 4,
+      "shape": "rect",
+      "coords": "177,165,187,175"
+    },
+    "Beijing": {
+      "id": 5,
+      "shape": "rect",
+      "coords": "712,93,722,103"
+    },
+    "Bukhara": {
+      "id": 6,
+      "shape": "rect",
+      "coords": "299,91,309,101"
+    },
+    "Chang`an": {
+      "id": 7,
+      "shape": "rect",
+      "coords": "657,135,667,145"
+    },
+    "Constantinople": {
+      "id": 8,
+      "shape": "rect",
+      "coords": "22,80,30,92"
+    },
+    "Damascus": {
+      "id": 9,
+      "shape": "rect",
+      "coords": "88,136,98,144"
+    },
+    "Delhi": {
+      "id": 10,
+      "shape": "rect",
+      "coords": "403,175,413,185"
+    },
+    "Dunhuang": {
+      "id": 11,
+      "shape": "rect",
+      "coords": "539,93,549,103"
+    },
+    "Guangzhou": {
+      "id": 12,
+      "shape": "rect",
+      "coords": "683,221,693,231"
+    },
+    "Isfahan": {
+      "id": 13,
+      "shape": "rect",
+      "coords": "199,145,209,155"
+    },
+    "Jerusalem": {
+      "id": 14,
+      "shape": "rect",
+      "coords": "80,152,90,162"
+    },
+    "Kabul": {
+      "id": 15,
+      "shape": "rect",
+      "coords": "351,131,361,141"
+    },
+    "Karakorum": {
+      "id": 16,
+      "shape": "rect",
+      "coords": "614,33,624,43"
+    },
+    "Kashgar": {
+      "id": 17,
+      "shape": "rect",
+      "coords": "396,97,408,108"
+    },
+    "Kesh": {
+      "id": 18,
+      "shape": "rect",
+      "coords": "334,104,343,113"
+    },
+    "Khotan": {
+      "id": 19,
+      "shape": "rect",
+      "coords": "419,112,429,122"
+    },
+    "Marv": {
+      "id": 20,
+      "shape": "rect",
+      "coords": "278,108,288,118"
+    },
+    "Ormuz": {
+      "id": 21,
+      "shape": "rect",
+      "coords": "239,196,249,206"
+    },
+    "Samarkand": {
+      "id": 22,
+      "shape": "rect",
+      "coords": "326,92,336,102"
+    },
+    "Tabriz": {
+      "id": 23,
+      "shape": "rect",
+      "coords": "163,104,173,114"
+    },
+    "Taxila": {
+      "id": 24,
+      "shape": "rect",
+      "coords": "365,153,375,163"
+    },
+    "Urgench": {
+      "id": 25,
+      "shape": "rect",
+      "coords": "267,76,277,86"
+    }
+  }
+}

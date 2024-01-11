@@ -1,0 +1,152 @@
+{
+  "quiz_name": "The Tarim Basin",
+  "quiz_filename": "tarim",
+  "map_image": "../img/tarim.jpg",
+  "mapping": {
+    "Aksu": {
+      "id": 1,
+      "shape": "rect",
+      "coords": "210,88,220,96"
+    },
+    "Altun Shan Mnts.": {
+      "id": 2,
+      "shape": "poly",
+      "coords": "453,161,450,173,588,154,588,137,503,150,453,161"
+    },
+    "Anxi": {
+      "id": 3,
+      "shape": "rect",
+      "coords": "625,88,635,98"
+    },
+    "Charchlyk": {
+      "id": 4,
+      "shape": "rect",
+      "coords": "378,171,388,180"
+    },
+    "Cherchen": {
+      "id": 5,
+      "shape": "rect",
+      "coords": "337,187,345,195"
+    },
+    "Cherchen R.": {
+      "id": 6,
+      "shape": "poly",
+      "coords": "372,160,383,162,363,174,348,182,340,181,349,173,372,160"
+    },
+    "Dunhuang": {
+      "id": 7,
+      "shape": "rect",
+      "coords": "589,106,599,114"
+    },
+    "Hami": {
+      "id": 8,
+      "shape": "rect",
+      "coords": "528,17,538,27"
+    },
+    "Lk. Issyk Kul": {
+      "id": 9,
+      "shape": "poly",
+      "coords": "113,33,114,37,131,42,155,38,163,31,164,26,113,33"
+    },
+    "Karakorum Mnts.": {
+      "id": 10,
+      "shape": "poly",
+      "coords": "9,217,6,257,143,261,78,209,9,217"
+    },
+    "Khotan": {
+      "id": 11,
+      "shape": "rect",
+      "coords": "196,202,204,210"
+    },
+    "Khotan Darya R.": {
+      "id": 12,
+      "shape": "poly",
+      "coords": "223,120,218,139,203,156,202,164,194,179,194,190,201,190,212,163,228,143,231,123,223,120"
+    },
+    "Kashgar": {
+      "id": 13,
+      "shape": "rect",
+      "coords": "99,135,107,143"
+    },
+    "Koria": {
+      "id": 14,
+      "shape": "rect",
+      "coords": "356,68,364,76"
+    },
+    "Kucha": {
+      "id": 15,
+      "shape": "rect",
+      "coords": "278,72,286,80"
+    },
+    "Kun Lun Mnts.": {
+      "id": 16,
+      "shape": "poly",
+      "coords": "110,192,114,219,161,226,199,239,267,245,267,226,233,224,197,218,181,208,110,192"
+    },
+    "Lop Nor": {
+      "id": 17,
+      "shape": "poly",
+      "coords": "448,111,448,131,463,131,459,110,448,111"
+    },
+    "Loulan": {
+      "id": 18,
+      "shape": "rect",
+      "coords": "451,97,459,105"
+    },
+    "Miran": {
+      "id": 19,
+      "shape": "rect",
+      "coords": "394,160,402,168"
+    },
+    "Niya": {
+      "id": 20,
+      "shape": "rect",
+      "coords": "270,203,283,216"
+    },
+    "Taklamakan Desert": {
+      "id": 21,
+      "shape": "poly",
+      "coords": "241,127,214,190,268,193,281,180,341,165,368,148,344,103,241,124"
+    },
+    "Tashkorgan": {
+      "id": 22,
+      "shape": "rect",
+      "coords": "62,182,72,190"
+    },
+    "Tarim R.": {
+      "id": 23,
+      "shape": "poly",
+      "coords": "233,105,281,88,304,84,328,79,366,80,366,88,318,88,287,96,236,113,235,103"
+    },
+    "Tien Shan Mnts.": {
+      "id": 24,
+      "shape": "poly",
+      "coords": "68,65,86,114,176,95,197,73,222,62,289,51,334,60,350,45,370,45,409,56,409,37,343,15,263,24,182,52,68,65"
+    },
+    "Turfan": {
+      "id": 25,
+      "shape": "rect",
+      "coords": "418,26,428,35"
+    },
+    "Yangqi": {
+      "id": 26,
+      "shape": "rect",
+      "coords": "366,56,376,66"
+    },
+    "Yanguan": {
+      "id": 27,
+      "shape": "rect",
+      "coords": "548,117,556,125"
+    },
+    "Yarkand Darya R.": {
+      "id": 28,
+      "shape": "poly",
+      "coords": "133,164,141,150,151,144,177,126,195,119,212,115,209,122,175,143,154,153,146,164,133,164"
+    },
+    "Yumenguan": {
+      "id": 29,
+      "shape": "rect",
+      "coords": "548,106,556,114"
+    }
+  }
+}

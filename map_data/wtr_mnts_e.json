@@ -1,7 +1,7 @@
 {
   "quiz_name": "Water and Mountains--East",
   "quiz_filename": "wtr_mnts_e",
-  "map_image": "../img/wtr_mnts_e.jpg",
+  "map_image": "img/wtr_mnts_e.jpg",
   "mapping": {
     "Altai Mnts.": {
       "id": 1,

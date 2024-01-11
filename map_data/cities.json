@@ -1,7 +1,7 @@
 {
   "quiz_name": "Cities of the Silk Road",
   "quiz_filename": "cities",
-  "map_image": "../img/cities.jpg",
+  "map_image": "img/cities.jpg",
   "mapping": {
     "Agra": {
       "id": 1,

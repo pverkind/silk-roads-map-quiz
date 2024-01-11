@@ -1,7 +1,7 @@
 {
   "quiz_name": "Water and Mountains--West",
   "quiz_filename": "wtr_mnts_w",
-  "map_image": "../img/wtr_mnts_w.jpg",
+  "map_image": "img/wtr_mnts_w.jpg",
   "mapping": {
     "Amu Darya R.": {
       "id": 1,

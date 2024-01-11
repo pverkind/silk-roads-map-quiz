@@ -1,7 +1,7 @@
 {
   "quiz_name": "Modern Countries",
   "quiz_filename": "countries",
-  "map_image": "../img/countries.jpg",
+  "map_image": "img/countries.jpg",
   "mapping": {
     "Afghanistan": {
       "id": 1,

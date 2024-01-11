@@ -1,7 +1,7 @@
 {
   "quiz_name": "Regions",
   "quiz_filename": "regions",
-  "map_image": "../img/regions.jpg",
+  "map_image": "img/regions.jpg",
   "mapping": {
     "Bactria": {
       "id": 1,

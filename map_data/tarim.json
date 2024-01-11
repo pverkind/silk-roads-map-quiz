@@ -1,7 +1,7 @@
 {
   "quiz_name": "The Tarim Basin",
   "quiz_filename": "tarim",
-  "map_image": "../img/tarim.jpg",
+  "map_image": "img/tarim.jpg",
   "mapping": {
     "Aksu": {
       "id": 1,

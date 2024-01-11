@@ -52,7 +52,7 @@ def convert_file(quiz_name, old_fp, new_fp, template_fn):
     map_data = {
         "quiz_name": quiz_long_name,
         "quiz_filename": quiz_name,
-        "map_image": "../img/" + image_fn,
+        "map_image": "img/" + image_fn,
         "mapping": json.loads(map_str)}
     data_fp = f"./map_data/{quiz_name}.json"
     with open(data_fp, mode="w", encoding="utf-8") as file:
